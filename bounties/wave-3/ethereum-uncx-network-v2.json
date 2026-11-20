@@ -1,0 +1,159 @@
+{
+  "wave": 3,
+  "chain": "ethereum",
+  "chain_id": 1,
+  "protocol_name": "UNCX Network V2",
+  "slug": "uncx-network-v2",
+  "pacta_slug": "uncx-network-v2",
+  "contract_address": "0xaDB2437e6F65682B85F814fBc12FeC0508A7B1D0",
+  "tvl_usd": 68814832,
+  "tvl_source_url": "https://api.llama.fi/protocol/uncx-network-v2",
+  "dossier_window": "2020-2026",
+  "trajectory_mode": "immutable_verified",
+  "historical_transitions": [
+    {
+      "block_number": 11055690,
+      "block_date": "2020-10-14",
+      "tx_hash": "0xdfd83808b1e65ee8b0f52e9d4e901fae5bbf15945eb2cef64e3b39f67ad935a7",
+      "event_kind": "deployment_baseline",
+      "rpc_or_cast_proof": "cast receipt 0xdfd83808b1e65ee8b0f52e9d4e901fae5bbf15945eb2cef64e3b39f67ad935a7 --rpc-url https://mainnet.gateway.tenderly.co",
+      "summary": "UniCrypt (UNCX) deployed at this address by EOA 0x60e2E1b2a317EdfC870b6Fc6886F69083FB2099a; receipt contractAddress matches and the single OwnershipTransferred event from the zero address is this deployment."
+    },
+    {
+      "block_number": 18219737,
+      "block_date": "2023-09-26",
+      "tx_hash": "0xf9f74f14b70809d1259ae3cdc680ee9da1e0d6c61de6c2abe93d328192e245a1",
+      "event_kind": "immutability_checkpoint",
+      "rpc_or_cast_proof": "cast code 0xaDB2437e6F65682B85F814fBc12FeC0508A7B1D0 --block 18219737 --rpc-url https://mainnet.gateway.tenderly.co",
+      "summary": "Runtime bytecode at the 2023 checkpoint hashes to sha256 0fd9aba20160fe76 and owner() returns the same EOA; ERC-20 transfer in this block confirms the contract was live and used in production."
+    },
+    {
+      "block_number": 24994314,
+      "block_date": "2026-04-30",
+      "tx_hash": "0xb3159b13f3e8fc605688df9e7bc9b45529c7a89b380047f6606adc286e50323e",
+      "event_kind": "immutability_checkpoint",
+      "rpc_or_cast_proof": "cast storage 0xaDB2437e6F65682B85F814fBc12FeC0508A7B1D0 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc --block 24994314 --rpc-url https://mainnet.gateway.tenderly.co",
+      "summary": "EIP-1967 implementation slot is the zero word at this block, so the address is not a proxy; bytecode hash and owner() are unchanged from 2023 and transfer activity is present in the same block."
+    },
+    {
+      "block_number": 26436502,
+      "block_date": "2026-11-17",
+      "tx_hash": "0x505904f96bb131b6d13b710742ef9d8b4733f42e1b27a9068cd227c4e33af59a",
+      "event_kind": "immutability_checkpoint",
+      "rpc_or_cast_proof": "cast call 0xaDB2437e6F65682B85F814fBc12FeC0508A7B1D0 'owner()(address)' --block 26436502 --rpc-url https://mainnet.gateway.tenderly.co",
+      "summary": "Latest checkpoint before the Pacta pin: identical bytecode hash, identical owner EOA, admin and implementation slots still zero, and a direct ERC-20 transfer confirms live use."
+    }
+  ],
+  "docs_and_governance_forensics": {
+    "mttr_status": "unrepaired_open",
+    "mttr_days": null,
+    "unrepaired_open_days": 1151.0,
+    "evidence_sources": [
+      {
+        "kind": "github_docs_commit",
+        "date": "2023-01-27",
+        "url": "https://github.com/softstack/Smart-Contract-Security-Audits/commit/419120a4bcf1e2f95112629f9f33a6e62fe61b8d",
+        "claim_summary": "Auditor commit adding the Unicrypt audit set; it publishes module audits and certificates but names no controller address, timelock or multisig for the deployed UNCX token."
+      },
+      {
+        "kind": "github_docs_commit",
+        "date": "2026-04-28",
+        "url": "https://github.com/softstack/Smart-Contract-Security-Audits/commit/392fb040979b3938891b49262edaa58e75247a70",
+        "claim_summary": "Latest auditor README for Unicrypt, three years later, still lists only product-level audit PDFs and never discloses the contract owner or any upgrade authority for 0xaDB2437e."
+      },
+      {
+        "kind": "wayback_snapshot",
+        "date": "2026-10-02",
+        "url": "https://web.archive.org/web/20261002183449/https://uncx.network/",
+        "claim_summary": "Public site snapshot contains no occurrence of the controller address, no timelock reference and no multisig reference, so holders cannot verify who holds unilateral owner() authority."
+      }
+    ],
+    "gap_windows": [
+      {
+        "opened_block": 18219737,
+        "opened_date": "2023-09-26",
+        "closed_block": null,
+        "closed_date": null,
+        "duration_days": 1151.0,
+        "status": "unrepaired_open",
+        "summary": "Controller-disclosure gap: since at least the 2023 checkpoint, public materials have never named the EOA holding owner() or stated any upgrade-delay policy, and no corrective disclosure exists as of 2026-11-20."
+      }
+    ]
+  },
+  "repo_audit": {
+    "github_org_repo": "uncx-network/token-vesting-contracts",
+    "commits_12m_contracts": 0,
+    "commits_12m_frontend_or_other": 0,
+    "human_contributors_12m": 0,
+    "bus_factor": 0,
+    "code_before_upgrade_verified": false
+  },
+  "executive_risk_memo": "Between 2023 and 2026 UNCX Network V2 shows an unusually clean control plane and a correspondingly thin governance record. The deployed token at 0xaDB2437e is not a proxy: both EIP-1967 slots read as zero at every checkpoint, upgradeTo and upgradeToAndCall are absent from the runtime, and the sha256 of the runtime bytecode is identical in 2023, 2026 and at the head block, while owner() returns the same EOA 0x60e2E1b2 throughout. For an investor this is the favourable half of the story: there is no upgrade backdoor, no signer rotation to track and no timelock whose delay can be quietly shortened. The unfavourable half is accountability. That EOA holds unilateral owner authority with no published delay, and no auditor report, site snapshot or governance post names it; the gap has stayed open for roughly 1151 days with zero repair attempts, so mean time to repair is effectively unbounded. Engineering bench strength is the weakest signal: the organisation's public repositories recorded no commits in the trailing twelve months, giving a bus factor of zero and making independent code review of the live artifact impossible beyond bytecode comparison. Supply is also not static \u2014 a holder-initiated burn of about 1.66e21 units executed in October 2026 \u2014 which is ordinary tokenomics rather than control-plane risk, but it means circulating supply must be read live rather than quoted. Net assessment: low upgrade risk, elevated key-person and disclosure risk; appropriate only for exposure sized to unverifiable operator identity. Prepared with agent assistance and every figure above derived from the cited receipts.",
+  "contributor_github": "veriton-dev",
+  "agent_assist_framework": "openclaw-agent",
+  "base_payout_address": "0xa75Cc8545B169F0BeF2f29c9CCF86bc686D039E8",
+  "mcp_tool_receipt": {
+    "tool": "pacta_lookup_protocol",
+    "arguments": {
+      "query": "uncx-network-v2",
+      "chain": "ethereum"
+    },
+    "result": {
+      "schema": "pacta.protocol_lookup.v1",
+      "query": "uncx-network-v2",
+      "totalMatches": 1,
+      "results": [
+        {
+          "baseEasUids": [],
+          "category": "Liquidity and team-token locker with token launch and vesting services (Ethereum)",
+          "chain": "ethereum",
+          "chainId": 1,
+          "classification": "rpc_observed",
+          "controllerAddress": "0x60e2E1b2a317EdfC870b6Fc6886F69083FB2099a",
+          "controllerKind": "eoa",
+          "documentationComparison": "not_assessed",
+          "documentedDelaySeconds": null,
+          "easAttested": false,
+          "evidenceBasis": "rpc_observed",
+          "kind": "protocol",
+          "name": "UNCX Network V2",
+          "observedDelaySeconds": null,
+          "pinnedBlock": 26455787,
+          "preflightArgs": {
+            "address": "0xaDB2437e6F65682B85F814fBc12FeC0508A7B1D0",
+            "chain": "ethereum"
+          },
+          "primaryContract": "0xaDB2437e6F65682B85F814fBc12FeC0508A7B1D0",
+          "relatedContracts": [],
+          "slug": "uncx-network-v2",
+          "surfaces": [
+            {
+              "blockNumber": 26455787,
+              "chain": "ethereum",
+              "classification": "rpc_observed",
+              "id": "uncx-network-v2-control-plane",
+              "surface": "UniCrypt (UNCX) \u00b7 Non-Proxy Bytecode & Controller",
+              "targetContract": "0xaDB2437e6F65682B85F814fBc12FeC0508A7B1D0",
+              "targetLabel": "UniCrypt (UNCX)"
+            }
+          ],
+          "targetLabel": "UniCrypt (UNCX)",
+          "tokens": [
+            "UNCX"
+          ],
+          "url": "https://pacta.wtf/protocols/uncx-network-v2/",
+          "whatDiffers": null,
+          "match": "exact",
+          "citationFooter": "Citation: https://pacta.wtf/protocols/uncx-network-v2/ (RPC-observed baseline; Base Mainnet EAS: not_attested)\nIssuer paths (payment never alters a classification; it strictly follows verified on-chain and documentation evidence): $0 maintainer doc-update queue https://pacta.wtf/request/ \u00b7 $500 USDC Rapid Single-Gap Re-Verification (24h SLA) https://pacta.wtf/request/?tier=rapid-500&protocol=uncx-network-v2 \u00b7 $2,500\u2013$5,000 USDC Full Protocol Control-Plane Dossier (24h SLA) https://pacta.wtf/for-protocols/"
+        }
+      ]
+    }
+  },
+  "apache2_commercial_grant": true,
+  "rules_accepted": [
+    true,
+    true,
+    true,
+    true
+  ]
+}
